@@ -17,7 +17,7 @@ struct CButton<Label: View>: View {
     
     init(
         backgroundColor: Color = Color.green.opacity(0.6),
-        tintColor: Color = Color.red,
+        tintColor: Color = Color.orange,
         width: CGFloat = 100,
         height: CGFloat = 50,
         action: @escaping () -> Void,
