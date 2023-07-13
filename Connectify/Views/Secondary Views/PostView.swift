@@ -12,75 +12,142 @@ struct PostView: View {
         ZStack {
             VStack {
                 HStack {
-                    ProfileImage(image: "ConnectifyLogo")
-                    VStack(alignment: .leading) {
-                        Text("Vusal Nuriyev")
-                            .font(.headline)
-                        Text("Manager")
-                            .font(.caption)
-                            .foregroundColor(Color.gray)
-                    }
+                    //MARK: Profile
+                    PostProfileView(image: "ConnectifyLogo")
                     
                     Spacer()
+                    
+                    //MARK: More Button
+                    CButton(backgroundColor: .clear) {
+                        
+                    } label: {
+                        Image("moreIcon")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .padding(.leading, 40)
+                    }
+                    
                 }
                 
                 
+                //MARK: Post Content
+                VStack {
+                    Rectangle()
+                        .fill(Color.clear)
+                        .frame(height: 250)
+                        .overlay {
+                            Image("examplePostImage1")
+                                .resizable()
+                                .frame(height: 250)
+                                .cornerRadius(15)
+                        }
+                    ///Comments
+                    CommentsView()
+                }
                 
-                Rectangle()
-                    .fill(Color.clear)
-                    .frame(height: 280)
-                    .overlay {
-                        Image("examplePostImage1")
-                            .resizable()
-                            .frame(height: 280)
-                    }
-                
+                //MARK: Social Buttons
                 SocialButtons()
+                    
                 
             }
             .background {
                 RoundedRectangle(cornerRadius: 15)
-                    .fill(Color.gray.opacity(0.4))
-                    .padding(-10)
+                    .fill(Color(.systemBackground))
+                    .shadow(radius: 5)
+                    .padding(-15)
+                    
             }
             .padding()
+            .padding(.horizontal)
+            
         }
     }
 }
 
-struct ProfileImage: View {
+struct PostProfileView: View {
     var image: String
     
     var body: some View {
-        Image(image)
-            .resizable()
-            .overlay(
-                Circle()
-                    .stroke(Color.blue, lineWidth: 1.3)
-            )
-            .frame(width: 70, height: 70)
-            .cornerRadius(35)
+        HStack {
+            Image(image)
+                .circularImage()
+                .frame(width: 70, height: 70)
+            
+            VStack(alignment: .leading) {
+                Text("Vusal Nuriyev")
+                    .font(.headline)
+                Text("Manager")
+                    .font(.caption)
+                    .foregroundColor(Color.gray)
+            }
+            
+        }
     }
 }
 
+struct CommentsView: View {
+    @State var isShowFullText: Bool = false
+    @State var continueOpacity: Double = 0
+    var textLength: Int = 100
+    var comment: String = "This is a new app, which can bring millions of people together!"
+    
+    var body: some View {
+        ZStack(alignment: .bottomTrailing) {
+                Text(comment)
+                .lineLimit(isShowFullText ? comment.count : 6)
+                    .font(.headline)
+           
+            
+            if textLength <= comment.count {
+                Button {
+                    withAnimation(.linear(duration: 0.05)) {
+                        isShowFullText.toggle()
+                    }
+                    
+                } label: {
+                    Text(isShowFullText ? "hide" : "...continue")
+                        .foregroundColor(.blue)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .background {
+                            Color.white
+                                .blur(radius: 5)
+                        }
+                        .cornerRadius(5)
+                        .offset(y: 5)
+                }
+                
+            }
+        }
+    }
+}
+
+
 struct SocialButtons: View {
+    @State var isGoodIdea: Bool = false
+    @State var isLike: Bool = false
+    
     var body: some View {
         ZStack {
             HStack(spacing: 20) {
                 //MARK: Like Button
                 Button {
-                    
+                    withAnimation {
+                        isLike.toggle()
+                    }
                 } label: {
-                    Image(systemName: "heart")
+                    Image(isLike ? "tappedLikeIcon" : "likeIcon")
                         .resizable()
                         .frame(width: 25, height: 25)
                 }
                 
                 //MARK: Share Button
                 Button {
-                    
+                    withAnimation {
+                        isGoodIdea.toggle()
+                    }
                 } label: {
-                    Image(systemName: "square.and.arrow.up")
+                    Image(isGoodIdea ? "tappedIdeaIcon" : "ideaIcon" )
                         .resizable()
                         .frame(width: 25, height: 25)
                 }
@@ -89,7 +156,7 @@ struct SocialButtons: View {
                 Button {
                     
                 } label: {
-                    Image(systemName: "message")
+                    Image("commentIcon")
                         .resizable()
                         .frame(width: 25, height: 25)
                 }
