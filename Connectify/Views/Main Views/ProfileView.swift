@@ -37,8 +37,8 @@ struct ProfileView: View {
                         .padding()
                     
                     SkillsView()
-                        
-                    Spacer()
+                    
+                    ProfileContents()
                     
                 }
             }
@@ -92,7 +92,7 @@ struct SkillsView: View {
                                 Capsule()
                                     .fill(Color(.systemBackground))
                                     .padding(.vertical, 9)
-                                    .shadow(radius: 5)
+                                    .shadow(radius: 1)
                             }
                     }
                 }
@@ -112,6 +112,51 @@ struct SkillsView: View {
     }
 }
 
+struct ProfileContents: View {
+    @State var currentTab: ContentTab = .posts
+    
+    @Namespace var animation
+     
+    var body: some View {
+        ZStack {
+            VStack {
+                HStack(spacing: 0){
+                    CTabBarButton (currentTab: $currentTab, tab: .posts, animation: animation)
+                    CTabBarButton(currentTab: $currentTab, tab: .experinces, animation: animation)
+                }
+                
+                switch currentTab {
+                case .posts:
+                    ColorfulView()
+                case .experinces:
+                    ColorfulView()
+                }
+            }
+        }
+    }
+}
+
+struct ColorfulView: View {
+    // Generate some random colors
+    let colors: [Color] = (1...20).map { _ in Color(red: .random(in: 0..<4), green: .random(in: 0..<4), blue: .random(in: 0..<4)) }
+
+    // Define the grid layout
+    var gridLayout: [GridItem] = Array(repeating: .init(.flexible()), count: 4)
+    
+    var body: some View {
+        ScrollView {
+            LazyVGrid(columns: gridLayout, spacing: 20) {
+                ForEach(colors, id: \.self) { color in
+                    RoundedRectangle(cornerRadius: 25)
+                        .fill(color)
+                        .frame(height: 100)
+                        .shadow(radius: 10)
+                }
+            }
+            .padding(20)
+        }
+    }
+}
 
 
 struct ProfileView_Previews: PreviewProvider {
