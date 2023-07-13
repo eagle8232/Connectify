@@ -120,7 +120,7 @@ struct StoryDetailView: View {
     
     private func startAnimatingProgress() {
         timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            progressValue += 0.1
+            progressValue += 0.02
             if progressValue >= 1 {
                 progressValue = 0
                 currentProgressIndex += 1
