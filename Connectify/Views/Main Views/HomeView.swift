@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Binding var tabBarVisible: Bool
     
     var body: some View {
         ZStack {
@@ -40,6 +41,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(tabBarVisible: .constant(true))
     }
 }

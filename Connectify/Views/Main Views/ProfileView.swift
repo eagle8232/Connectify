@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @Binding var tabBarVisible: Bool
     var body: some View {
         ZStack {
             ScrollView(.vertical) {
@@ -17,10 +18,27 @@ struct ProfileView: View {
                             .resizable()
                             .frame(height: 120)
                         HStack {
-                            Image("profileImage")
-                                .circularImage()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 100, height: 100)
+                            VStack {
+                                Image("profileImage")
+                                    .circularImage()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 100, height: 100)
+                                Button {
+                                    
+                                } label: {
+                                    Image(systemName: "pencil")
+                                        .resizable()
+                                        .frame(width: 18, height: 18)
+                                        .background {
+                                            Circle()
+                                                .fill(Color(.systemBackground))
+                                                .shadow(color: Color(.label), radius: 2)
+                                                .padding(-5)
+                                        }
+                                }
+                                .offset(x: 30, y: -30)
+                                
+                            }
                             
                             Spacer()
                         }
@@ -92,7 +110,7 @@ struct SkillsView: View {
                                 Capsule()
                                     .fill(Color(.systemBackground))
                                     .padding(.vertical, 9)
-                                    .shadow(radius: 1)
+                                    .shadow(color: Color(.label), radius: 1)
                             }
                     }
                 }
@@ -161,6 +179,6 @@ struct ColorfulView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView()
+        ProfileView(tabBarVisible: .constant(true))
     }
 }

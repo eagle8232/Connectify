@@ -53,7 +53,7 @@ struct PostView: View {
             .background {
                 RoundedRectangle(cornerRadius: 15)
                     .fill(Color(.systemBackground))
-                    .shadow(radius: 5)
+                    .shadow(color: Color(.label), radius: 1)
                     .padding(-15)
                     
             }

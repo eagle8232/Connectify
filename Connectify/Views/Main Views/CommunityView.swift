@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CommunityView: View {
+    @Binding var tabBarVisible: Bool
     var body: some View {
         VStack {
             Text("Welcome to the Community")
@@ -21,15 +22,11 @@ struct CommunityView: View {
                 .multilineTextAlignment(.center)
                 .padding()
 
-            Button(action: {
-                // Action to join the community
+            CButton(action: {
+                
             }) {
                 Text("Join Now")
                     .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(10)
             }
             .padding()
 
@@ -41,6 +38,6 @@ struct CommunityView: View {
 
 struct CommunityView_Previews: PreviewProvider {
     static var previews: some View {
-        CommunityView()
+        CommunityView(tabBarVisible: .constant(true))
     }
 }
