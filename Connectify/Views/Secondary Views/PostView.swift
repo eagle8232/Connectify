@@ -14,6 +14,7 @@ struct PostView: View {
                 HStack {
                     //MARK: Profile
                     PostProfileView(image: "ConnectifyLogo")
+                        .padding(.horizontal)
                     
                     Spacer()
                     
@@ -24,10 +25,11 @@ struct PostView: View {
                         Image("moreIcon")
                             .resizable()
                             .frame(width: 20, height: 20)
-                            .padding(.leading, 40)
+                            .padding(.leading, 50)
                     }
                     
                 }
+                
                 
                 
                 //MARK: Post Content
@@ -39,26 +41,26 @@ struct PostView: View {
                             Image("examplePostImage1")
                                 .resizable()
                                 .frame(height: 250)
-                                .cornerRadius(15)
+                                
                         }
                     ///Comments
-                    CommentsView()
+                    DescriptionView()
+                        .padding(.horizontal)
                 }
                 
                 //MARK: Social Buttons
                 SocialButtons()
-                    
+                    .padding(.horizontal)
                 
             }
             .background {
-                RoundedRectangle(cornerRadius: 15)
+                Rectangle()
                     .fill(Color(.systemBackground))
                     .shadow(color: Color(.label), radius: 1)
                     .padding(-15)
                     
             }
-            .padding()
-            .padding(.horizontal)
+            .padding(.bottom)
             
         }
     }
@@ -85,20 +87,20 @@ struct PostProfileView: View {
     }
 }
 
-struct CommentsView: View {
+struct DescriptionView: View {
     @State var isShowFullText: Bool = false
     @State var continueOpacity: Double = 0
     var textLength: Int = 100
-    var comment: String = "This is a new app, which can bring millions of people together!"
+    var description: String = "This is a new app, which can bring millions of people together!"
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-                Text(comment)
-                .lineLimit(isShowFullText ? comment.count : 6)
-                    .font(.headline)
-           
             
-            if textLength <= comment.count {
+            Text(description)
+                .lineLimit(isShowFullText ? description.count : 6)
+                .font(.system(size: 14, weight: .light))
+            
+            if textLength <= description.count {
                 Button {
                     withAnimation(.linear(duration: 0.05)) {
                         isShowFullText.toggle()
@@ -112,12 +114,14 @@ struct CommentsView: View {
                         .background {
                             Color.white
                                 .blur(radius: 5)
+                                .opacity(isShowFullText ? 0 : 1)
                         }
                         .cornerRadius(5)
-                        .offset(y: 5)
+                        .offset(x: 5, y: isShowFullText ? 25 : 10)
                 }
                 
             }
+            
         }
     }
 }

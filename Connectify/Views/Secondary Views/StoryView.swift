@@ -11,31 +11,21 @@ struct StoryView: View {
     @State var isShowStoryDetail: Bool = false
     var body: some View {
         ZStack {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(0..<10, id: \.self) { i in
-                        VStack {
-                            RoundedRectangle(cornerRadius: 15)
-                                .fill(Color.clear)
-                                .frame(width: 80, height: 80)
-                                .overlay {
-                                    Image("ConnectifyLogo")
-                                        .resizable()
-                                        .frame(width: 75, height: 75)
-                                }
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(Color.blue, lineWidth: 1.3)
-                                )
-                                .onTapGesture {
-                                    isShowStoryDetail = true
-                                }
-                            Text("Person \(i + 1)")
-                                .font(.system(size: 14, weight: .medium))
-                        }
+            VStack {
+                Image("ConnectifyLogo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 75, height: 75)
+                    .cornerRadius(20)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.blue, lineWidth: 1.7)
+                    )
+                    .onTapGesture {
+                        isShowStoryDetail = true
                     }
-                }
-                .padding()
+                Text("Person")
+                    .font(.system(size: 14, weight: .medium))
             }
         }
         .fullScreenCover(isPresented: $isShowStoryDetail) {
@@ -61,7 +51,7 @@ struct StoryDetailView: View {
                             ProgressView("", value: currentProgressIndex == index ? progressValue : 1)
                                 .tint(Color("mainColor"))
                                 .frame(maxWidth: .infinity)
-                                
+                            
                         }
                     }
                     .padding(.horizontal)
@@ -147,7 +137,7 @@ struct StoryProfileView: View {
                 Image(image)
                     .circularImage()
                     .frame(width: 30, height: 30)
-                    
+                
                 
                 VStack(alignment: .leading) {
                     Text("Vusal Nuriyev")
@@ -158,6 +148,54 @@ struct StoryProfileView: View {
                 }
                 
             }
+        }
+    }
+}
+
+struct AddStoryView: View {
+    @State var isShowStoryDetail: Bool = false
+    
+    var body: some View {
+        ZStack {
+            VStack {
+                ZStack {
+                    
+                    Image("profileImage")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 75, height: 75)
+                        .cornerRadius(20)
+                    
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.gray, lineWidth: 1.7)
+                        )
+                        .onTapGesture {
+                            isShowStoryDetail = true
+                        }
+                    
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "plus")
+                            .resizable()
+                            .frame(width: 18, height: 18)
+                            .background {
+                                Circle()
+                                    .fill(Color(.systemBackground))
+                                    .shadow(color: Color(.label), radius: 2)
+                                    .padding(-5)
+                            }
+                    }
+                    .offset(x: 30, y: -30)
+                    
+                }
+                Text("You")
+                    .font(.system(size: 14, weight: .semibold))
+            }
+        }
+        .fullScreenCover(isPresented: $isShowStoryDetail) {
+            StoryDetailView(isShowStoryDetail: $isShowStoryDetail)
         }
     }
 }

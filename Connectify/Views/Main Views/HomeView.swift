@@ -14,7 +14,21 @@ struct HomeView: View {
         ZStack {
             ScrollView(.vertical) {
                 VStack {
-                    StoryView()
+                    HStack {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                AddStoryView()
+                                
+                                ForEach(0..<10, id: \.self) { i in
+                                    StoryView()
+                                }
+                            }
+                            .padding()
+                        }
+                    }
+                    
+                    Divider()
+                    
                     VStack {
                         ForEach(0..<10, id: \.self) { _ in
                             PostView()

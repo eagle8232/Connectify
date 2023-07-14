@@ -61,6 +61,15 @@ struct ProfileView: View {
                 }
             }
         }
+        .toolbar(content: {
+            ToolbarItem(placement: .navigationBarLeading) {
+                CButton(width: 35, height: 35) {
+                    
+                } label: {
+                    Image(systemName: "gear")
+                }
+            }
+        }) 
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.inline)
     }
