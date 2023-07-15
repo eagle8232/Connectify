@@ -10,6 +10,7 @@ import Foundation
 enum Tab: String, CaseIterable {
     case home = "Home"
     case jobs = "Jobs"
-    case community = "Community"
+    case post = "Post"
+    case community = "People"
     case profile = "Profile"
 }

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject var profileManager: ProfileManager
+    @EnvironmentObject var postManager: PostManager
     @Binding var tabBarVisible: Bool
     
     var body: some View {
@@ -30,14 +32,15 @@ struct HomeView: View {
                     Divider()
                     
                     VStack {
-                        ForEach(0..<10, id: \.self) { _ in
-                            PostView()
+                        ForEach(postManager.postModel ?? []) { postModel in
+                            PostView(postModel: postModel)
                         }
                     }
                     Spacer()
                 }
                 
             }
+            .padding(.bottom, 100)
         }
         .toolbar(content: {
             ToolbarItem(placement: .navigationBarLeading) {

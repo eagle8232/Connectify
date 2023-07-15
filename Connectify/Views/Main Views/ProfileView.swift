@@ -8,7 +8,14 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @EnvironmentObject var profileManager: ProfileManager
     @Binding var tabBarVisible: Bool
+    @State var isEdit: Bool = false
+    @State var showActionSheet = false
+    @State var showImagePicker = false
+    @State var imagePickerSourceType: ImagePicker.SourceType = .photoLibrary
+    @State var selectedImage: UIImage? = nil
+    
     var body: some View {
         ZStack {
             ScrollView(.vertical) {
@@ -19,12 +26,13 @@ struct ProfileView: View {
                             .frame(height: 120)
                         HStack {
                             VStack {
-                                Image("profileImage")
+                                
+                                (profileManager.profileImage)
                                     .circularImage()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 100, height: 100)
                                 Button {
-                                    
+                                    showActionSheet = true
                                 } label: {
                                     Image(systemName: "pencil")
                                         .resizable()
@@ -69,11 +77,30 @@ struct ProfileView: View {
                     Image(systemName: "gear")
                 }
             }
-        }) 
+        })
+        .actionSheet(isPresented: $showActionSheet) {
+            ActionSheet(title: Text("Edit"), message: Text("Choose a photo source"), buttons: [
+                .default(Text("Take a photo")) {
+                    imagePickerSourceType = .camera
+                    showImagePicker = true
+                },
+                .default(Text("Choose from gallery")) {
+                    imagePickerSourceType = .photoLibrary
+                    showImagePicker = true
+                },
+                .cancel()
+            ])
+        }
+        .sheet(isPresented: $showImagePicker) {
+            ImagePicker(selectedImage: $selectedImage, sourceType: imagePickerSourceType, completion: { selectedImage in
+                profileManager.profileImage = Image(uiImage: selectedImage!)
+            })
+        }
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.inline)
     }
 }
+
 
 struct ProfileInfoView: View {
     var body: some View {

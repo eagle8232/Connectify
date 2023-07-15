@@ -32,6 +32,8 @@ struct CommunityView: View {
 
             Spacer()
         }
+        .navigationTitle("People")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

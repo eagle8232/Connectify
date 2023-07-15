@@ -23,9 +23,10 @@ struct JobDetailsView: View {
                         HStack {
                             Image(job.photoName)
                                 .circularImage()
+                                .aspectRatio(contentMode: .fill)
                                 .frame(width: 100, height: 100)
                             
-                            VStack {
+                            VStack(alignment: .leading) {
                                 Text(job.company)
                                     .font(.headline)
                                     .fontWeight(.medium)

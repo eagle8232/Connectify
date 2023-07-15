@@ -13,12 +13,12 @@ struct StoryView: View {
         ZStack {
             VStack {
                 Image("ConnectifyLogo")
-                    .resizable()
+                    .circularImage()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 75, height: 75)
                     .cornerRadius(20)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 20)
+                        Circle()
                             .stroke(Color.blue, lineWidth: 1.7)
                     )
                     .onTapGesture {
@@ -153,21 +153,21 @@ struct StoryProfileView: View {
 }
 
 struct AddStoryView: View {
+    @EnvironmentObject var profileManager: ProfileManager
     @State var isShowStoryDetail: Bool = false
     
     var body: some View {
         ZStack {
             VStack {
                 ZStack {
-                    
-                    Image("profileImage")
-                        .resizable()
+                    profileManager.profileImage
+                        .circularImage()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 75, height: 75)
                         .cornerRadius(20)
                     
                         .overlay(
-                            RoundedRectangle(cornerRadius: 20)
+                            Circle()
                                 .stroke(Color.gray, lineWidth: 1.7)
                         )
                         .onTapGesture {

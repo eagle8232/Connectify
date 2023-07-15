@@ -15,13 +15,12 @@ struct CTabBar: View {
             Rectangle()
                 .fill(Color(.systemBackground))
                 .overlay {
-                    HStack(spacing: 70) {
+                    HStack(spacing: 48) {
                         ForEach(Tab.allCases, id: \.self) { tab in
                             tabButton(tab: tab)
                         }
-                        .padding(.bottom, 25)
+                        .padding(.bottom, 40)
                     }
-                    
                 }
                 
         }
@@ -41,6 +40,7 @@ struct CTabBar: View {
                         .font(.caption)
                         .foregroundColor(selectedTab == tab ? .blue : .gray)
                 }
+                
             }
         }
     }
@@ -57,6 +57,11 @@ struct CTabBar: View {
                 return "tappedCommunityIcon"
             }
             return "communityIcon"
+        case .post:
+            if selectedTab == .post {
+                return "tappedPostIcon"
+            }
+            return "postIcon"
         case .jobs:
             if selectedTab == .jobs {
                 return "tappedJobsIcon"

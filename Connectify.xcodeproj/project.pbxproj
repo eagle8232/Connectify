@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6944560A2A6239580059B64C /* ImagePickerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694456092A6239580059B64C /* ImagePickerRepresentable.swift */; };
+		6944560C2A623B000059B64C /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944560B2A623B000059B64C /* ProfileManager.swift */; };
+		6944560E2A623FD50059B64C /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944560D2A623FD50059B64C /* AddPostView.swift */; };
+		694456102A6242F80059B64C /* TextViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944560F2A6242F80059B64C /* TextViewRepresentable.swift */; };
+		694456122A6289CF0059B64C /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694456112A6289CF0059B64C /* PostModel.swift */; };
+		694456142A628A3A0059B64C /* PostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694456132A628A3A0059B64C /* PostManager.swift */; };
 		6949D9902A60E2050035C607 /* JobsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6949D98F2A60E2050035C607 /* JobsViewModel.swift */; };
 		6949D9922A60E77B0035C607 /* JobDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6949D9912A60E77B0035C607 /* JobDetailsView.swift */; };
 		6949D9942A60E9FB0035C607 /* TabBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6949D9932A60E9FB0035C607 /* TabBarManager.swift */; };
@@ -56,6 +62,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		694456092A6239580059B64C /* ImagePickerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerRepresentable.swift; sourceTree = "<group>"; };
+		6944560B2A623B000059B64C /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
+		6944560D2A623FD50059B64C /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
+		6944560F2A6242F80059B64C /* TextViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewRepresentable.swift; sourceTree = "<group>"; };
+		694456112A6289CF0059B64C /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
+		694456132A628A3A0059B64C /* PostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostManager.swift; sourceTree = "<group>"; };
 		6949D98F2A60E2050035C607 /* JobsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsViewModel.swift; sourceTree = "<group>"; };
 		6949D9912A60E77B0035C607 /* JobDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDetailsView.swift; sourceTree = "<group>"; };
 		6949D9932A60E9FB0035C607 /* TabBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarManager.swift; sourceTree = "<group>"; };
@@ -115,6 +127,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		694456082A6239350059B64C /* ControllerRepresentables */ = {
+			isa = PBXGroup;
+			children = (
+				694456092A6239580059B64C /* ImagePickerRepresentable.swift */,
+				6944560F2A6242F80059B64C /* TextViewRepresentable.swift */,
+			);
+			path = ControllerRepresentables;
+			sourceTree = "<group>";
+		};
 		69517A412A5C32430008EEAC = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +202,7 @@
 		69517A7C2A5C337B0008EEAC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				694456082A6239350059B64C /* ControllerRepresentables */,
 				69517A9A2A5C71C20008EEAC /* Secondary Views */,
 				69517A992A5C71B70008EEAC /* Onboardin Views */,
 				69517A982A5C71A20008EEAC /* Main Views */,
@@ -194,6 +216,7 @@
 				69517A902A5C58520008EEAC /* Tabs.swift */,
 				69F8A6932A5FFBDC00D8F61D /* ContentTab.swift */,
 				6949D9952A60F1BF0035C607 /* JobsModel.swift */,
+				694456112A6289CF0059B64C /* PostModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -234,6 +257,7 @@
 				69517A942A5C5AEB0008EEAC /* CommunityView.swift */,
 				69517A962A5C5AF50008EEAC /* ProfileView.swift */,
 				6949D9912A60E77B0035C607 /* JobDetailsView.swift */,
+				6944560D2A623FD50059B64C /* AddPostView.swift */,
 			);
 			path = "Main Views";
 			sourceTree = "<group>";
@@ -269,6 +293,8 @@
 			isa = PBXGroup;
 			children = (
 				6949D9932A60E9FB0035C607 /* TabBarManager.swift */,
+				6944560B2A623B000059B64C /* ProfileManager.swift */,
+				694456132A628A3A0059B64C /* PostManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -405,18 +431,22 @@
 			files = (
 				6949D9922A60E77B0035C607 /* JobDetailsView.swift in Sources */,
 				69517A9C2A5C71F10008EEAC /* StoryView.swift in Sources */,
+				694456102A6242F80059B64C /* TextViewRepresentable.swift in Sources */,
 				69F8A6922A5FDC3E00D8F61D /* Image + Extension.swift in Sources */,
 				69F8A6942A5FFBDC00D8F61D /* ContentTab.swift in Sources */,
 				69517A8D2A5C545E0008EEAC /* RegisterView.swift in Sources */,
 				69517A862A5C34710008EEAC /* LoginView.swift in Sources */,
 				69517A932A5C5AE10008EEAC /* JobsView.swift in Sources */,
 				69517A892A5C3DE10008EEAC /* CTextField.swift in Sources */,
+				6944560A2A6239580059B64C /* ImagePickerRepresentable.swift in Sources */,
 				69517A572A5C32440008EEAC /* Persistence.swift in Sources */,
 				69517A912A5C58520008EEAC /* Tabs.swift in Sources */,
+				694456122A6289CF0059B64C /* PostModel.swift in Sources */,
 				69F8A68F2A5FCA2A00D8F61D /* Date + Extension.swift in Sources */,
 				6949D9942A60E9FB0035C607 /* TabBarManager.swift in Sources */,
 				69517A952A5C5AEB0008EEAC /* CommunityView.swift in Sources */,
 				69517A5A2A5C32440008EEAC /* Connectify.xcdatamodeld in Sources */,
+				694456142A628A3A0059B64C /* PostManager.swift in Sources */,
 				69517A8F2A5C57790008EEAC /* CTabBar.swift in Sources */,
 				6949D9902A60E2050035C607 /* JobsViewModel.swift in Sources */,
 				69F8A6992A6032D900D8F61D /* CTabBarButton.swift in Sources */,
@@ -425,7 +455,9 @@
 				69517A502A5C32430008EEAC /* ContentView.swift in Sources */,
 				69517A802A5C33FD0008EEAC /* HomeView.swift in Sources */,
 				69517A4E2A5C32430008EEAC /* ConnectifyApp.swift in Sources */,
+				6944560C2A623B000059B64C /* ProfileManager.swift in Sources */,
 				69517A972A5C5AF50008EEAC /* ProfileView.swift in Sources */,
+				6944560E2A623FD50059B64C /* AddPostView.swift in Sources */,
 				69517A8B2A5C443C0008EEAC /* CButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -588,6 +620,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need a permission to your camera to take a picture";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photos library to select a photo";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -621,6 +655,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need a permission to your camera to take a picture";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photos library to select a photo";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
