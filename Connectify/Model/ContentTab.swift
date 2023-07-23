@@ -9,5 +9,5 @@ import Foundation
 
 enum ContentTab: String, CaseIterable {
     case posts = "Posts"
-    case experinces = "Experinces"
+    case experiences = "Experiences"
 }

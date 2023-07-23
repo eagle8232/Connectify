@@ -59,6 +59,9 @@ struct CTextField: View {
             .fill(color)
             .overlay {
                 TextField(placeholder, text: $text)
+                    .onSubmit {
+                        
+                    }
                     .padding(.leading)
             }
             .overlay(

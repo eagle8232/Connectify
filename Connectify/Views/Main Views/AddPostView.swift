@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddPostView: View {
     @EnvironmentObject var postManager: PostManager
+    @EnvironmentObject var profileManager: ProfileManager
     @Binding var isAddPost: Bool
     @State var text: String = ""
     @State var placeholder: String = "Write your expressions to post!"
@@ -28,14 +29,18 @@ struct AddPostView: View {
                         CButton(backgroundColor: !text.isEmpty ? Color("mainColor") : Color.gray) {
                             
                             let post = PostModel(text: text, image: convertImage(uiImages: images))
-                            postManager.postModel.append(post)
                             
+                            profileManager.myProfile?.posts?.append(post)
                             isAddPost = false
+                            text = ""
+                            images = []
                             completion()
                         } label: {
                             Text("Add Post")
                                 
                         }
+                        .disabled(!text.isEmpty ? false : true)
+                        
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {

@@ -8,15 +8,19 @@
 import SwiftUI
 
 struct PostView: View {
-    @EnvironmentObject var profileManager: ProfileManager
-    var postModel: PostModel
+    var profile: ProfileModel
+    var post: PostModel
+    
+    @Binding var isAllComments: Bool
+    @Binding var tabBarVisible: Bool
     
     var body: some View {
+        
         ZStack {
-            VStack {
+            VStack(alignment: .leading) {
                 HStack {
                     //MARK: Profile
-                    PostProfileView()
+                    PostProfileView(profileModel: profile)
                         .padding(.horizontal)
                     
                     Spacer()
@@ -39,66 +43,78 @@ struct PostView: View {
                 VStack {
                     Rectangle()
                         .fill(Color.clear)
-                        .frame(height: 250)
+                        .frame(height: 400)
                         .overlay(
-                            Group {
-                                if postModel.image.count == 1 {
-                                    postModel.image[0]
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(height: 250)
-                                } else {
-                                    TabView {
-                                        ForEach(postModel.image.indices, id: \.self) { index in
-                                             postModel.image[index]
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fill)
-                                                .frame(height: 250)
+                            GeometryReader { proxy in
+                                Group {
+                                    
+                                    if post.image.count == 1 {
+                                        post.image[0]
+                                            .resizable()
+                                            .frame(width: proxy.size.width)
+                                            .aspectRatio(contentMode: .fit)
+                                        
+                                    } else {
+                                        TabView {
+                                            ForEach(post.image.indices, id: \.self) { index in
+                                                post.image[index]
+                                                    .resizable()
+                                                    .frame(width: proxy.size.width)
+                                                    .aspectRatio(contentMode: .fit)
+                                            }
                                         }
+                                        .tabViewStyle(PageTabViewStyle())
                                     }
-                                    .tabViewStyle(PageTabViewStyle())
+                                    
                                 }
                             }
+                            
                         )
-
+                    
+                    
+                    
                     ///Comments
-                    DescriptionView(postModel: postModel)
+                    DescriptionView(postModel: post)
                         .padding(.horizontal)
                 }
                 
                 //MARK: Social Buttons
-                SocialButtons()
+                SocialButtons(profile: profile, post: post, tabBarVisible: $tabBarVisible)
                     .padding(.horizontal)
                 
+                if !isAllComments {
+                    CommentsView(comments: post.comments)
+                        .padding(.horizontal)
+                }
+                
             }
-            .background {
-                Rectangle()
-                    .fill(Color(.systemBackground))
-                    .shadow(color: Color(.label), radius: 1)
-                    .padding(-15)
-                    
-            }
-            .padding(.bottom)
+        }
+        .background {
+            Rectangle()
+                .fill(Color(.systemBackground))
+                .shadow(color: Color(.label), radius: 1)
+                .padding(-15)
             
         }
+        .padding(.bottom)
+        
     }
 }
 
 struct PostProfileView: View {
-    @EnvironmentObject var profileManager: ProfileManager
-    
+    var profileModel: ProfileModel
     
     var body: some View {
         HStack {
-            profileManager.profileImage
+            profileModel.profileImage?
                 .circularImage()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 70, height: 70)
+                .frame(width: 55, height: 55)
             
             VStack(alignment: .leading) {
-                Text("Vusal Nuriyev")
+                Text(profileModel.profileName)
                     .font(.headline)
-                Text("Manager")
+                Text(profileModel.profileJob ?? "")
                     .font(.caption)
                     .foregroundColor(Color.gray)
             }
@@ -118,30 +134,31 @@ struct DescriptionView: View {
             HStack {
                 Text(postModel.text)
                     .lineLimit(isShowFullText ? postModel.text.count : 6)
-                    .font(.system(size: 14, weight: .light))
+                    .font(.system(size: 14, weight: .semibold))
+                
                 Spacer()
             }
-                if textLength <= postModel.text.count {
-                    Button {
-                        withAnimation(.linear(duration: 0.05)) {
-                            isShowFullText.toggle()
-                        }
-                        
-                    } label: {
-                        Text(isShowFullText ? "hide" : "...continue")
-                            .foregroundColor(.blue)
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 6)
-                            .background {
-                                Color.white
-                                    .blur(radius: 5)
-                                    .opacity(isShowFullText ? 0 : 1)
-                            }
-                            .cornerRadius(5)
-                            .offset(x: 5, y: isShowFullText ? 25 : 10)
+            if textLength <= postModel.text.count {
+                Button {
+                    withAnimation(.linear(duration: 0.05)) {
+                        isShowFullText.toggle()
                     }
                     
+                } label: {
+                    Text(isShowFullText ? "hide" : "...continue")
+                        .foregroundColor(.blue)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .background {
+                            Color.white
+                                .blur(radius: 5)
+                                .opacity(isShowFullText ? 0 : 1)
+                        }
+                        .cornerRadius(5)
+                        .offset(x: 5, y: isShowFullText ? 25 : 10)
                 }
+                
+            }
             
             
         }
@@ -150,6 +167,10 @@ struct DescriptionView: View {
 
 
 struct SocialButtons: View {
+    var profile: ProfileModel
+    var post: PostModel
+    
+    @Binding var tabBarVisible: Bool
     @State var isGoodIdea: Bool = false
     @State var isLike: Bool = false
     
@@ -179,8 +200,11 @@ struct SocialButtons: View {
                 }
                 
                 //MARK: Comment Button
-                Button {
-                    
+                NavigationLink {
+                    AllCommentsView(profileModel: profile, post: post, tabBarVisible: $tabBarVisible)
+                        .onAppear {
+                            tabBarVisible = false
+                        }
                 } label: {
                     Image("commentIcon")
                         .resizable()
@@ -190,11 +214,7 @@ struct SocialButtons: View {
                 Spacer()
             }
         }
+        
     }
 }
 
-struct PostView_Previews: PreviewProvider {
-    static var previews: some View {
-        PostView(postModel: PostModel(text: "", image: []))
-    }
-}

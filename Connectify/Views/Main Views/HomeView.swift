@@ -9,38 +9,40 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var profileManager: ProfileManager
-    @EnvironmentObject var postManager: PostManager
+    
     @Binding var tabBarVisible: Bool
     
     var body: some View {
         ZStack {
             ScrollView(.vertical) {
                 VStack {
-                    HStack {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
-                                AddStoryView()
-                                
-                                ForEach(0..<10, id: \.self) { i in
-                                    StoryView()
-                                }
-                            }
-                            .padding()
-                        }
-                    }
+//                    HStack {
+//                        ScrollView(.horizontal, showsIndicators: false) {
+//                            HStack {
+//                                AddStoryView()
+//
+//                                ForEach(profileManager.myProfile?.profileFollowers ?? []) { follower in
+//                                    StoryView(profile: follower)
+//                                }
+//                            }
+//                            .padding()
+//                        }
+//                    }
                     
                     Divider()
                     
                     VStack {
-                        ForEach(postManager.postModel ?? []) { postModel in
-                            PostView(postModel: postModel)
+                        ForEach(profileManager.myProfile?.profileFollowers ?? []) { profile in
+                            if !(profile.posts?.isEmpty ?? false) {
+                                PostsView(profileModel: profile, tabBarVisible: $tabBarVisible)
+                            }
                         }
+                        PostsView(profileModel: profileManager.myProfile!, tabBarVisible: $tabBarVisible)
                     }
                     Spacer()
+                        .padding(.bottom, 100)
                 }
-                
             }
-            .padding(.bottom, 100)
         }
         .toolbar(content: {
             ToolbarItem(placement: .navigationBarLeading) {

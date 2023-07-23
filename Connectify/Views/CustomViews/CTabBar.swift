@@ -14,14 +14,17 @@ struct CTabBar: View {
         ZStack {
             Rectangle()
                 .fill(Color(.systemBackground))
+                .ignoresSafeArea()
                 .overlay {
-                    HStack(spacing: 48) {
+                    HStack(spacing: 46) {
                         ForEach(Tab.allCases, id: \.self) { tab in
                             tabButton(tab: tab)
                         }
-                        .padding(.bottom, 40)
+                        .padding(.bottom, 23)
                     }
                 }
+                .frame(height: 90)
+                .offset(y: 10)
                 
         }
     }

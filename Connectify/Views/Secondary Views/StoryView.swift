@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct StoryView: View {
+    var profile: ProfileModel
     @State var isShowStoryDetail: Bool = false
     var body: some View {
         ZStack {
             VStack {
-                Image("ConnectifyLogo")
+                profile.profileImage?
                     .circularImage()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 75, height: 75)
@@ -24,17 +25,18 @@ struct StoryView: View {
                     .onTapGesture {
                         isShowStoryDetail = true
                     }
-                Text("Person")
+                Text(profile.profileName)
                     .font(.system(size: 14, weight: .medium))
             }
         }
         .fullScreenCover(isPresented: $isShowStoryDetail) {
-            StoryDetailView(isShowStoryDetail: $isShowStoryDetail)
+            StoryDetailView(profile: profile, isShowStoryDetail: $isShowStoryDetail)
         }
     }
 }
 
 struct StoryDetailView: View {
+    var profile: ProfileModel
     @Binding var isShowStoryDetail: Bool
     var contentCount: Int = 8
     
@@ -65,7 +67,7 @@ struct StoryDetailView: View {
                                 .foregroundColor(Color.black)
                                 .frame(width: 20, height: 20)
                         }
-                        StoryProfileView(image: "ConnectifyLogo")
+                        StoryProfileView(profile: profile)
                     }
                     .padding(.horizontal)
                     
@@ -129,18 +131,18 @@ struct StoryDetailView: View {
 
 
 struct StoryProfileView: View {
-    var image: String
+    var profile: ProfileModel
     
     var body: some View {
         ZStack {
             HStack {
-                Image(image)
+                profile.profileImage?
                     .circularImage()
                     .frame(width: 30, height: 30)
                 
                 
                 VStack(alignment: .leading) {
-                    Text("Vusal Nuriyev")
+                    Text(profile.profileName)
                         .font(.caption)
                     Text(Date().toString())
                         .font(.caption2)
@@ -149,59 +151,5 @@ struct StoryProfileView: View {
                 
             }
         }
-    }
-}
-
-struct AddStoryView: View {
-    @EnvironmentObject var profileManager: ProfileManager
-    @State var isShowStoryDetail: Bool = false
-    
-    var body: some View {
-        ZStack {
-            VStack {
-                ZStack {
-                    profileManager.profileImage
-                        .circularImage()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 75, height: 75)
-                        .cornerRadius(20)
-                    
-                        .overlay(
-                            Circle()
-                                .stroke(Color.gray, lineWidth: 1.7)
-                        )
-                        .onTapGesture {
-                            isShowStoryDetail = true
-                        }
-                    
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "plus")
-                            .resizable()
-                            .frame(width: 18, height: 18)
-                            .background {
-                                Circle()
-                                    .fill(Color(.systemBackground))
-                                    .shadow(color: Color(.label), radius: 2)
-                                    .padding(-5)
-                            }
-                    }
-                    .offset(x: 30, y: -30)
-                    
-                }
-                Text("You")
-                    .font(.system(size: 14, weight: .semibold))
-            }
-        }
-        .fullScreenCover(isPresented: $isShowStoryDetail) {
-            StoryDetailView(isShowStoryDetail: $isShowStoryDetail)
-        }
-    }
-}
-
-struct StoryView_Previews: PreviewProvider {
-    static var previews: some View {
-        StoryView()
     }
 }

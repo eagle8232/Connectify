@@ -21,7 +21,7 @@ struct CTabBarButton: View {
             VStack(spacing: 5){
                 Text(tab.rawValue)
                     .font(.title2)
-                    .foregroundColor(currentTab == tab ? Color("mainColor") : Color.black.opacity (0.3))
+                    .foregroundColor(currentTab == tab ? Color("mainColor") : Color(.label).opacity (0.3))
                 // default Frame to avoid resizing.
                     .frame(height: 35)
                 ZStack {

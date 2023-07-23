@@ -19,7 +19,7 @@ extension Date {
         }
     }
 
-    private func toString(format: String) -> String {
+    func toString(format: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: self)

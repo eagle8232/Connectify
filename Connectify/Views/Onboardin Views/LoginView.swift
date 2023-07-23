@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct LoginView: View {
+    @ObservedObject var userSettings = UserSettings()
+    @Binding var tabBarVisible: Bool
+    
     @State var emailTextField: String = ""
     @State var passwordTextField: String = ""
     
+    @State var isShowHomeView: Bool = false
     @State var isShowRegisterView: Bool = false
     
     var body: some View {
@@ -47,7 +51,9 @@ struct LoginView: View {
                 VStack(alignment: .center) {
                     //MARK: Log in Button
                     CButton(width: 250) {
-                        
+                        tabBarVisible = true
+                        userSettings.isRegistered = true
+                        isShowHomeView = true
                     } label: {
                         Text("Sign In")
                             .font(.system(size: 20, weight: .bold))
@@ -116,11 +122,13 @@ struct LoginView: View {
         .fullScreenCover(isPresented: $isShowRegisterView) {
             RegisterView(isShowRegisterView: $isShowRegisterView)
         }
+        .fullScreenCover(isPresented: $isShowHomeView) {
+            ContentView()
+        }
+        .onAppear {
+            tabBarVisible = false
+        }
     }
 }
 
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
-    }
-}
+

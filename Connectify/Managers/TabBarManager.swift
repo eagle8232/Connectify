@@ -14,9 +14,4 @@ class TabBarManager: ObservableObject {
     init() {
         isVisible = true
     }
-    
-    func setVisibility(isVisible: Bool) {
-        self.isVisible = isVisible
-    }
-    
 }
